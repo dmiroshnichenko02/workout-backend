@@ -18,13 +18,13 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email         String        @unique
-  name          String
-  password      String
-  images        String[]
-  exercisesLogs ExerciseLog[]
+  email    String   @unique
+  name     String
+  password String
+  images   String[]
 
-  workoutLogs WorkoutLog[]
+  exerciseLogs ExerciseLog[]
+  workoutLogs  WorkoutLog[]
 }
 
 model Workout {
@@ -42,11 +42,13 @@ model Exercise {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  name          String
-  times         Int
-  iconPath      String       @map("icon_path")
-  workouts      Workout[]
-  exerciseLogs  ExerciseLog? @relation(fields: [exerciseLogId], references: [id])
+  name     String
+  times    Int
+  iconPath String @map("icon_path")
+
+  workouts Workout[]
+
+  exerciseLog   ExerciseLog? @relation(fields: [exerciseLogId], references: [id])
   exerciseLogId Int?         @map("exercise_log_id")
 }
 
@@ -55,18 +57,18 @@ model ExerciseLog {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  isCopmleted Boolean        @default(false) @map("is_completed")
+  isCompleted Boolean        @default(false) @map("is_completed")
   times       ExerciseTime[]
 
   user   User? @relation(fields: [userId], references: [id])
   userId Int?  @map("user_id")
 
+  workoutLog   WorkoutLog? @relation(fields: [workoutLogId], references: [id])
+  workoutLogId Int?        @map("workout_log_id")
+
   exercise Exercise[]
 
-  workoutLog   WorkoutLog? @relation(fields: [workoutLogId], references: [id])
-  workoutLogId Int?
-
-  @@map("Exercise_logs")
+  @@map("Exercise_log")
 }
 
 model ExerciseTime {
@@ -74,9 +76,10 @@ model ExerciseTime {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  weight        Int
-  repeat        Int
-  isCompleted   Boolean      @default(false) @map("is_completed")
+  weight      Int     @default(0)
+  repeat      Int     @default(0)
+  isCompleted Boolean @default(false) @map("is_completed")
+
   exerciseLog   ExerciseLog? @relation(fields: [exerciseLogId], references: [id])
   exerciseLogId Int?         @map("exercise_log_id")
 
@@ -88,14 +91,15 @@ model WorkoutLog {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  isComplete   Boolean       @default(false) @map("is_complete")
+  isCompleted Boolean @default(false) @map("is_completed")
+
   exerciseLogs ExerciseLog[]
 
   user   User? @relation(fields: [userId], references: [id])
   userId Int?  @map("user_id")
 
-  uorkout   Workout? @relation(fields: [workoutId], references: [id])
+  workout   Workout? @relation(fields: [workoutId], references: [id])
   workoutId Int?     @map("workout_id")
 
-  @@map("Workout_logs")
+  @@map("Workout_log")
 }

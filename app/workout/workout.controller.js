@@ -81,6 +81,8 @@ export const createWorkout = expressAsyncHandler(async (req, res) => {
 export const updateWorkout = expressAsyncHandler(async (req, res) => {
 	const { name, exercisesIds } = req.body
 
+	console.log(exercisesIds, name)
+
 	try {
 		const workout = await prisma.workout.update({
 			where: {

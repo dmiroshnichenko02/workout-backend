@@ -34,7 +34,7 @@ export const updateExercise = expressAsyncHandler(async (req, res) => {
 	try {
 		const exercise = await prisma.exercise.update({
 			where: {
-				id: +req.params.id
+				id: +req.params.exerciseId
 			},
 			data: {
 				name,
@@ -54,7 +54,7 @@ export const deleteExercise = expressAsyncHandler(async (req, res) => {
 	try {
 		const exercise = await prisma.exercise.delete({
 			where: {
-				id: +req.params.id
+				id: +req.params.exerciseId
 			}
 		})
 
