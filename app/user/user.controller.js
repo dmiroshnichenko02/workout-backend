@@ -39,8 +39,6 @@ export const getUserProfile = expressAsyncHandler(async (req, res) => {
 		}
 	})
 
-	console.log(minutes)
-
 	// minutes, workouts, weight
 
 	res.json({

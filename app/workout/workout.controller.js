@@ -45,8 +45,6 @@ export const getAllWorkouts = expressAsyncHandler(async (req, res) => {
 		throw new Error('No workouts found')
 	}
 
-	console.log(workouts.exercises)
-
 	res.json(workouts)
 })
 
@@ -83,8 +81,6 @@ export const createWorkout = expressAsyncHandler(async (req, res) => {
 
 export const updateWorkout = expressAsyncHandler(async (req, res) => {
 	const { name, exercisesIds } = req.body
-
-	console.log(exercisesIds, name)
 
 	try {
 		const workout = await prisma.workout.update({
