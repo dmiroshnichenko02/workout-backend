@@ -7,7 +7,7 @@ import { calculateMinute } from './calculate-minute.js'
 // @access Private
 
 export const getWorkout = expressAsyncHandler(async (req, res) => {
-	const workout = await prisma.workout.findMany({
+	const workout = await prisma.workout.findUnique({
 		where: {
 			id: +req.params.id
 		},
@@ -16,9 +16,7 @@ export const getWorkout = expressAsyncHandler(async (req, res) => {
 		}
 	})
 
-	console.log(workout[0].exercises.length)
-
-	const minutes = calculateMinute(workout[0].exercises.length)
+	const minutes = calculateMinute(workout.exercises.length)
 
 	if (!workout) {
 		res.status(404)

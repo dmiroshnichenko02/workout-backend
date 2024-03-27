@@ -37,8 +37,6 @@ export const updateCompleteExerciseLog = expressAsyncHandler(
 
 		const exerciseId = +req.params.exerciseId
 
-		console.log(req.params.exerciseId)
-
 		try {
 			const exerciseLog = await prisma.exerciseLog.update({
 				where: {
@@ -49,8 +47,7 @@ export const updateCompleteExerciseLog = expressAsyncHandler(
 				},
 				include: {
 					workoutLog: true,
-					exercise: true,
-					times: true
+					exercise: true
 				}
 			})
 

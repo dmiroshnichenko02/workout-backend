@@ -20,3 +20,6 @@ yarn.lock
 # Ignore OS generated files
 .DS_Store
 Thumbs.db
+
+
+prisma/migrations/
