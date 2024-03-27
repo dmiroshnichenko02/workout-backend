@@ -1,5 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
 import { prisma } from '../prisma.js'
+import { calculateMinute } from './calculate-minute.js'
 
 // desc Get workout
 // @route GET /api/workouts/:id
@@ -15,14 +16,16 @@ export const getWorkout = expressAsyncHandler(async (req, res) => {
 		}
 	})
 
-	const minutes = workout[0].exercises ? workout[0].exercises.length * 3.7 : 0
+	console.log(workout[0].exercises.length)
+
+	const minutes = calculateMinute(workout[0].exercises.length)
 
 	if (!workout) {
 		res.status(404)
 		throw new Error('Workout not found')
 	}
 
-	res.json({ ...workout[0], minutes })
+	res.json({ ...workout, minutes: minutes })
 })
 
 // desc Get all workouts
@@ -43,6 +46,8 @@ export const getAllWorkouts = expressAsyncHandler(async (req, res) => {
 		res.status(404)
 		throw new Error('No workouts found')
 	}
+
+	console.log(workouts.exercises)
 
 	res.json(workouts)
 })
