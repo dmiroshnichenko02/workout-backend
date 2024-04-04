@@ -24,7 +24,7 @@ export const getWorkoutLog = expressAsyncHandler(async (req, res) => {
 					id: 'asc'
 				},
 				include: {
-					times: true
+					exercise: true
 				}
 			}
 		}

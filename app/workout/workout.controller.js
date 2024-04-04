@@ -12,7 +12,9 @@ export const getWorkout = expressAsyncHandler(async (req, res) => {
 			id: +req.params.id
 		},
 		include: {
-			exercises: true
+			exercises: {
+				include: {}
+			}
 		}
 	})
 
@@ -36,7 +38,11 @@ export const getAllWorkouts = expressAsyncHandler(async (req, res) => {
 			createdAt: 'desc'
 		},
 		include: {
-			exercises: true
+			exercises: {
+				include: {
+					exerciseLogs: true
+				}
+			}
 		}
 	})
 

@@ -6,7 +6,7 @@ import { prisma } from '../../prisma.js'
 // @access Private
 
 export const updateExerciseLogTime = expressAsyncHandler(async (req, res) => {
-	const { weight, repeat, isCompleted } = req.body
+	const { weight, repeat } = req.body
 
 	try {
 		const exerciseLogTime = await prisma.exerciseTime.update({
@@ -15,8 +15,7 @@ export const updateExerciseLogTime = expressAsyncHandler(async (req, res) => {
 			},
 			data: {
 				weight,
-				repeat,
-				isCompleted
+				repeat
 			}
 		})
 

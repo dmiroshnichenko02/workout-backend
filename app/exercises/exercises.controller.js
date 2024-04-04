@@ -40,6 +40,9 @@ export const updateExercise = expressAsyncHandler(async (req, res) => {
 				name,
 				times,
 				iconPath
+			},
+			include: {
+				exerciseLogs: true
 			}
 		})
 
